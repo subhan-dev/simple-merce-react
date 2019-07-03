@@ -1,55 +1,48 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
-
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Col, Form, FormGroup, Label } from 'reactstrap';
 
 class ManageProduct extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          modal: false,
-          products: [],
-          editProduct: {}
-        };
-    
-        this.toggle = this.toggle.bind(this);
+    state = {
+        products: [],
+        selectedId: 0
     }
-    
-    toggle() {
-        this.setState(prevState => ({
-          modal: !prevState.modal
-        }));
-
-        // console.log("tes")
-    }
-    // state = {
-    //     products: []
-    // }
 
     componentDidMount(){
         // Akses database
         this.getProduct()
     }
 
+    onSaveItem = id => {
+        var nama = this.editName.value
+        var desk = this.editDesc.value
+        var harga = this.editPrice.value
+
+        axios.patch(
+            'http://localhost:2019/products/' + id,
+            {
+                name: nama,
+                desc: desk,
+                price: harga
+            }
+        ).then(res => {
+            this.getProduct()
+        }).catch(err => {
+            console.log('Gagal')
+        })
+    }
+
+    onDeleteItem = (id) => {
+        axios.delete('http://localhost:2019/products/' + id)
+        .then(() => {
+            this.getProduct()
+        })
+    }
+
     getProduct = () => {
         axios.get('http://localhost:2019/products')
             .then(res => {
-               this.setState({products: res.data})
+               this.setState({products: res.data, selectedId: 0})
             })
-    }
-
-    handleEdit = (data) => {
-        this.toggle()
-
-        // const nameproduct = this.editDesc.value
-        // console.log(nameproduct)
-        
-        this.setState({
-            editProduct: data
-        })
     }
 
     addProduct = () => {
@@ -72,152 +65,94 @@ class ManageProduct extends Component {
         })
     }
 
-    handleDelete = (id) => {
-        axios.delete(`http://localhost:2019/products/${id}`).then(res => {this.getProduct()})
-    }
-
     renderList = () => {
         return this.state.products.map( item => { // {id, name, price, desc, src}
-            return (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.desc}</td>
-                    <td>{item.price}</td>
-                    <td>
-                        <img className='list' src={item.src} alt="Pict"/>
-                    </td>
-                    <td>
-                        <Button color="danger" onClick={() => this.handleEdit(item)}>Edit</Button>
-                        <button className = 'btn btn-warning' onClick={() => this.handleDelete(item.id)}>Delete</button>
-                    </td>
-                </tr>
-            )
-        })
-    }
-
-
-    handleSimpan = () => {
-        
-        const edtName = this.editName.value
-        const edtDesc = this.editDesc.value
-        const edtPrice = this.editPrice.value
-        const edtSrc = this.editSrc.value
-        
-        // console.log(editDesc)
-        // console.log(edtName)
-        axios.put(
-            `http://localhost:2019/products/${this.state.editProduct.id}`,
-            {
-                name: edtName,
-                desc: edtDesc,
-                price: edtPrice,
-                src: edtSrc
+            if(item.id !== this.state.selectedId){
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.desc}</td>
+                        <td>{item.price}</td>
+                        <td>
+                            <img className='list' src={item.src} alt="Pict"/>
+                        </td>
+                        <td>
+                            <button onClick={() => {this.setState({selectedId: item.id})}} className = 'btn btn-primary'>Edit</button>
+                            <button onClick={()=>{this.onDeleteItem(item.id)}} className = 'btn btn-warning'>Delete</button>
+                        </td>
+                    </tr>
+                )
+            } else {
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editName = input}} type="text" defaultValue={item.name}/>
+                        </td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editDesc = input}} type="text" defaultValue={item.desc}/>
+                        </td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editPrice = input}} type="text" defaultValue={item.price}/>
+                        </td>
+                        <td>
+                            <img className='list' src={item.src} alt="Pict"/>
+                        </td>
+                        <td>
+                            <button onClick={() => {this.onSaveItem(item.id)}} className = 'btn btn-primary'>Save</button>
+                            <button onClick={() => {this.setState({selectedId: 0})}} className = 'btn btn-warning'>Cancel</button>
+                        </td>
+                    </tr>
+                )
             }
-        ).then(res => {
-            this.getProduct()
         })
-        this.toggle()
     }
-
 
     render () {
-        if(this.props.user.username.length > 0) {
-            console.log(this.props.user.username)
-            return (
-                <div className="container">
-                    <h1 className="display-4 text-center">List Product</h1>
-                    <table className="table table-hover mb-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">NAME</th>
-                                <th scope="col">DESC</th>
-                                <th scope="col">PRICE</th>
-                                <th scope="col">PICTURE</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderList()}
-                            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                                <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
-                                <ModalBody>
-                                    <Form>
-                                        <FormGroup row>
-                                            <Label sm={2}>Name</Label>
-                                            <Col sm={10}>
-                                                <input className='form-control' type='text'
-                                                    ref={(input) => {this.editName = input}} defaultValue={this.state.editProduct.name}
-                                                />
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Label sm={2}>Desc</Label>
-                                            <Col sm={10}>
-                                                <input className='form-control' type='text'
-                                                    ref={(input) => {this.editDesc = input}} defaultValue={this.state.editProduct.desc}
-                                                />
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Label sm={2}>Price</Label>
-                                            <Col sm={10}>
-                                                <input className='form-control' type='text'
-                                                    ref={(input) => {this.editPrice = input}} defaultValue={this.state.editProduct.price}
-                                                />
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Label sm={2}>Picture</Label>
-                                            <Col sm={10}>
-                                                <input className='form-control' type='text'
-                                                    ref={(input) => {this.editSrc = input}} defaultValue={this.state.editProduct.src}
-                                                />
-                                            </Col>
-                                        </FormGroup>
-                                    </Form>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <Button color="primary" onClick={this.handleSimpan}>Simpan</Button>{' '}
-                                    <Button color="secondary" onClick={this.toggle}>Batal</Button>
-                                </ModalFooter>
-                            </Modal>
-                        </tbody>
-                    </table>
-                    <h1 className="display-4 text-center">Input Product</h1>
-                    <table className="table text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">NAME</th>
-                                <th scope="col">DESC</th>
-                                <th scope="col">PRICE</th>
-                                <th scope="col">PICTURE</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="col"><input ref={input => this.name = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.desc = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.price = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.pict = input} className="form-control" type="text" /></th>
-                                <th scope="col"><button className="btn btn-outline-warning" onClick={this.addProduct}>Add</button></th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
-        return <Redirect to="/login" />
+        return (
+            <div className="container">
+                <h1 className="display-4 text-center">List Product</h1>
+                <table className="table table-hover mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">DESC</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">PICTURE</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderList()}
+                    </tbody>
+                </table>
+                <h1 className="display-4 text-center">Input Product</h1>
+                <table className="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">NAME</th>
+                            <th scope="col">DESC</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">PICTURE</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col"><input ref={input => this.name = input} className="form-control" type="text" /></th>
+                            <th scope="col"><input ref={input => this.desc = input} className="form-control" type="text" /></th>
+                            <th scope="col"><input ref={input => this.price = input} className="form-control" type="text" /></th>
+                            <th scope="col"><input ref={input => this.pict = input} className="form-control" type="text" /></th>
+                            <th scope="col"><button className="btn btn-outline-warning" onClick={this.addProduct}>Add</button></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )
     }
 
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.auth
-    }
-}
-
-export default connect(mapStateToProps)(ManageProduct)
+export default ManageProduct

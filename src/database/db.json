@@ -2,72 +2,110 @@
   "users": [
     {
       "id": 1,
+      "username": "alvin",
+      "email": "alvin@gmail.com",
+      "password": "satuduatiga"
+    },
+    {
       "username": "subhan",
-      "email": "subhan@gmail.com",
-      "password": "123"
+      "email": "subhan.developer24@gmail.com",
+      "password": "123",
+      "id": 2
     },
     {
       "username": "ahmad",
-      "email": "ahmad@gmail.com",
-      "password": "123",
-      "cart": [],
-      "id": 2
+      "email": "ahmad@gm.com",
+      "password": "12345",
+      "id": 3
     }
   ],
   "products": [
     {
-      "name": "Hoodie dua",
-      "desc": "Baru Lebaran 2019, Kondisi 100%",
-      "price": "230000",
+      "desc": "Bahan Katun",
+      "name": "T-Shirt",
+      "price": 30000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 1
+    },
+    {
+      "desc": "Bahan Combed",
+      "name": "T-Shirt 2",
+      "price": 25000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 2
+    },
+    {
+      "desc": "Bahan Combed",
+      "name": "T-Shirt 3",
+      "price": 50000,
       "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 3
     },
     {
-      "name": "hoodie satu",
-      "desc": "Baru dibuat hari inii",
-      "price": "34000",
+      "desc": "Bahan Combed",
+      "name": "T-Shirt 4",
+      "price": 75000,
       "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 4
     },
     {
-      "desc": "Baru dibuat setelah yag pertama",
-      "name": "Bag satu",
-      "price": 35000,
+      "desc": "Bahan Combed",
+      "name": "T-Shirt 4",
+      "price": 100000,
       "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 5
-    },
-    {
-      "desc": "Baru dibuat setelah yag pertama",
-      "name": "bag Dua",
-      "price": 35000,
-      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
-      "id": 6
     }
   ],
   "cart": [
     {
+      "idProduct": 1,
       "idUser": 2,
-      "idProduct": 3,
-      "count": "",
+      "name": "T-Shirt",
+      "desc": "Bahan Katun",
+      "price": "30000",
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "jumlah": 5,
       "id": 1
     },
     {
+      "idProduct": 2,
       "idUser": 2,
-      "idProduct": 3,
-      "count": "3",
+      "name": "T-Shirt 2",
+      "desc": "Bahan Combed",
+      "price": 25000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "jumlah": 3,
       "id": 2
     },
     {
+      "idProduct": 5,
       "idUser": 2,
-      "idProduct": 3,
-      "count": null,
+      "name": "T-Shirt 4",
+      "desc": "Bahan Combed",
+      "price": 100000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "jumlah": 2,
       "id": 3
     },
     {
-      "idUser": 2,
-      "idProduct": 3,
-      "count": 4,
+      "idProduct": 1,
+      "idUser": 3,
+      "name": "T-Shirt",
+      "desc": "Bahan Katun",
+      "price": 30000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "jumlah": 6,
       "id": 4
+    },
+    {
+      "idProduct": 2,
+      "idUser": 3,
+      "name": "T-Shirt 2",
+      "desc": "Bahan Combed",
+      "price": 25000,
+      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "jumlah": 2,
+      "id": 5
     }
   ]
 }

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
+// import cookies from 'universal-cookie'
 
 import { onLoginUser } from '../actions'
+
+// const cookie = new cookies() 
 
 class Login extends Component {
 
@@ -19,10 +22,9 @@ class Login extends Component {
     }
 
     render () {
-        if(this.props.user.username === '') {
+        if(this.props.user.username === ''){
             return (
                 <div>
-                    <h1>{this.props.user.username}</h1>
                     <div className = 'mt-5 row'>
                         <div className = 'col-sm-4 mx-auto card'>
                             <div className = 'card-body'>
@@ -57,7 +59,9 @@ class Login extends Component {
                 </div>
             )
         }
-        return <Redirect to="/" />  
+
+        // Arahakan / Redirect ke Home
+        return <Redirect to='/'/>
     }
 }
 

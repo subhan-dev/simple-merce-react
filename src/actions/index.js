@@ -18,17 +18,16 @@ export const onLoginUser = (user, pass) => {
             // res.data = [], jumlah isi array menggunakan length
             if(res.data.length > 0){
                 const {id, username} = res.data[0]
+
+                // Kirim action ke reducer, untuk disimpam username
                 dispatch(
                     {
                         type: "LOGIN_SUCCESS",
-                        payload: {
-                            id: id,
-                            username: username
-                        }
+                        payload: {id,username}
                     }
                 )
 
-                // create cookie for stay login
+                // Create data untuk cookie
                 cookie.set('userName', {id, username}, {path: '/'})
             } else {
                 console.log('Username / Password incorrect')
@@ -53,33 +52,5 @@ export const onLogoutUser = () => {
     cookie.remove('userName')
     return {
         type: 'LOGOUT_SUCCESS'
-    }
-}
-
-export const getAllProducts = (products) => {
-    return {
-        type: "GET_PRODUCTS",
-        payload: products
-    }
-}
-
-export const filterProduct = (fiiProduct) => {
-    return {
-        type: "FILL_PRODUCT",
-        payload: fiiProduct
-    }
-}
-
-export const getCart = (productCart) => {
-    return {
-        type: "CART_PRODUCTS",
-        payload: productCart
-    }
-}
-
-export const addCartCount = (orderCount) => {
-    return {
-        type: "ADD_CART_COUNT",
-        payload: orderCount
     }
 }

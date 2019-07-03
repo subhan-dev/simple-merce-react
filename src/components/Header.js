@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import axios from 'axios'
 
-import { onLogoutUser, getAllProducts } from '../actions'
+import { onLogoutUser } from '../actions'
 
 import {
     Button,
@@ -30,17 +29,10 @@ class Header extends Component {
         });
       }
 
-    onButtonClick = () => {
-        // menghapus username dari redux state
-        this.props.onLogoutUser()
-    }
-
-    getProduct = () => {
-        axios.get('http://localhost:2019/products')
-            .then(res => {
-               this.props.getAllProducts(res.data)
-            })
-    }
+      onButtonClick = () => {
+          // menghapus username dari redux state
+          this.props.onLogoutUser()
+      }
 
     render () {
         if(this.props.user.username === ''){
@@ -53,7 +45,7 @@ class Header extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <Link to='/' onClick={() => this.getProduct()}>All Products</Link>
+                            <Link to='/' >All Products</Link>
                         </NavItem>
                         <NavItem>
                             <Link to='/register'>
@@ -81,28 +73,29 @@ class Header extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                     <NavItem className='mt-2'>
-                        <Link to='/' onClick={() => this.getProduct()}>All Products</Link>
+                        <Link to='/' >All Products</Link>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
                         Hallo, {this.props.user.username}
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem>
-                            <Link to="/manageproduct">Manage Products</Link>
-                        </DropdownItem>
-                        <DropdownItem>
-                        Option 2
-                        </DropdownItem>
+                        <Link to="/manageproduct">
+                            <DropdownItem>
+                                Manage Products
+                            </DropdownItem>
+                        </Link>
+                        <Link to="/cart">
+                            <DropdownItem>
+                                Cart
+                            </DropdownItem>
+                        </Link>
                         <DropdownItem divider />
                         <Button className='dropdown-item' onClick={this.onButtonClick}>
                             Logout
                         </Button>
                     </DropdownMenu>
                     </UncontrolledDropdown>
-                    <NavItem className='mt-2'>
-                        <Link to='/cart' >Cart</Link>
-                    </NavItem>
                     </Nav>
                 </Collapse>
                 </Navbar>
@@ -119,4 +112,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {onLogoutUser, getAllProducts})(Header)
+export default connect(mapStateToProps, {onLogoutUser})(Header)

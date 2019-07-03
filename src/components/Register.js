@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Register extends Component {
-
-    state = {
-        successRegis: false
-    }
 
     onButtonClick = () => {
         const user = this.username.value
@@ -50,8 +46,7 @@ class Register extends Component {
                             {
                                 username: user,
                                 email: emaiL,
-                                password: pass,
-                                cart: []
+                                password: pass
                             }
                         ).then( (res) => {
                             console.log('Data berhasil di input')
@@ -60,8 +55,6 @@ class Register extends Component {
                             console.log('Gagal post data')
                             console.log(err)
                         })
-
-                        this.setState({successRegis: true})
                     }
                 })
             }
@@ -78,54 +71,51 @@ class Register extends Component {
     }
 
     render() {
-        if(this.state.successRegis === false) {
-            return (
-                <div>
-    
-                    <div className = 'mt-5 row'>
-                        <div className = 'col-sm-4 mx-auto card'>
-                            <div className = 'card-body'>
-                                <div className = ' border-bottom border-secondary card-title'>
-                                    <h1>Register</h1>
-                                </div>
-    
-                                <div className='card-title'>
-                                    <h4>Username</h4>
-                                </div>
-                                <form className='input-group'>
-                                    <input className='form-control' type='text'
-                                        ref={(input) => {this.username = input}}
-                                    />
-                                </form>
-    
-                                <div className='card-title'>
-                                    <h4>Email</h4>
-                                </div>
-                                <form className='input-group'>
-                                    <input className='form-control'
-                                        ref={(input) => {this.email = input}}
-                                    />
-                                </form>
-    
-                                <div className='card-title'>
-                                    <h4>Password</h4>
-                                </div>
-                                <form className='input-group'>
-                                    <input className='form-control' type='password'
-                                        ref={(input) => {this.password = input}}
-                                    />
-                                </form>
-    
-                                <button onClick={this.onButtonClick} className='btn btn-success'>Click for Register</button>
-                                <p>Sudah memiliki akun ? <Link to="/login" >Login disini</Link></p>
+        return (
+            <div>
+
+                <div className = 'mt-5 row'>
+                    <div className = 'col-sm-4 mx-auto card'>
+                        <div className = 'card-body'>
+                            <div className = ' border-bottom border-secondary card-title'>
+                                <h1>Register</h1>
                             </div>
+
+                            <div className='card-title'>
+                                <h4>Username</h4>
+                            </div>
+                            <form className='input-group'>
+                                <input className='form-control' type='text'
+                                    ref={(input) => {this.username = input}}
+                                />
+                            </form>
+
+                            <div className='card-title'>
+                                <h4>Email</h4>
+                            </div>
+                            <form className='input-group'>
+                                <input className='form-control'
+                                    ref={(input) => {this.email = input}}
+                                />
+                            </form>
+
+                            <div className='card-title'>
+                                <h4>Password</h4>
+                            </div>
+                            <form className='input-group'>
+                                <input className='form-control' type='password'
+                                    ref={(input) => {this.password = input}}
+                                />
+                            </form>
+
+                            <button onClick={this.onButtonClick} className='btn btn-success'>Click for Register</button>
+                            <p>Sudah memiliki akun ? <Link to="/login" >Login disini</Link></p>
                         </div>
                     </div>
-    
                 </div>
-            )
-        }
-        return <Redirect to="/login"></Redirect>
+
+            </div>
+        )
     }
 }
 

@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {connect} from 'react-redux'
 
-import ProductItem from './productItem'
-import {getAllProducts, filterProduct} from '../actions/index'
+import ProductItem from './ProductItem'
 
 class Home extends Component {
 
-    // state = {
-    //     products: [],
-    //     searchProducts: []
-    // }
+    state = {
+        products: [],
+        searchProducts: []
+    }
 
     componentDidMount() {
         this.getProduct()
@@ -21,9 +19,7 @@ class Home extends Component {
         const min = parseInt(this.min.value) // NaN
         const max = parseInt(this.max.value) // NaN
 
-        
-
-        let arrSearch = this.props.products.filProduct.filter(item => {
+        var arrSearch = this.state.searchProducts.filter(item => {
             if(isNaN(min) && isNaN(max)){ // Search by Name
                 return (
                     item.name.toLowerCase().includes(name.toLowerCase())
@@ -50,10 +46,12 @@ class Home extends Component {
                     item.price <= max
                 )
             }
+
+            
+
         })
 
-        this.props.filterProduct(arrSearch)
-        console.log(this.props.products.filProduct)
+        this.setState({products: arrSearch})
 
 
     }
@@ -61,22 +59,19 @@ class Home extends Component {
     getProduct = () => {
         axios.get('http://localhost:2019/products')
             .then(res => {
-               this.props.getAllProducts(res.data)
+               this.setState({products: res.data, searchProducts: res.data})
             })
     }
 
     renderList = () => {
-        if(this.props.products.products !== undefined) {
-            return this.props.products.products.map(item => { // {name, desc, ...}
-                return (
-                    <ProductItem data={item} key={item.id}/>
-                )
-            })
-        } 
+        return this.state.products.map(item => { // {name, desc, ...}
+            return (
+                <ProductItem barang={item} key={item.id}/>
+            )
+        })
     }
 
     render () {
-        //console.log(this.props.products.filProduct)
         return (
             <div className="row">
                 <div className="col">
@@ -108,10 +103,4 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        products: state.products
-    }
-}
-
-export default connect(mapStateToProps, {getAllProducts, filterProduct})(Home)
+export default Home

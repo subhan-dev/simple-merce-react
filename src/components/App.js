@@ -8,16 +8,16 @@ import Register from './Register'
 import Login from './Login'
 import Home from './Home'
 import ManageProduct from './ManageProduct'
-import Cart from './Cart'
 import DetailProduct from './DetailProduct'
+import Cart from './Cart'
 
 import { keepLogin } from '../actions'
-// localhost:3000/register
+
 const cookie = new cookies()
 
 class App extends Component {
 
-    componentDidMount(){
+    componentWillMount(){
         // Check cookie
         const objCookie = cookie.get('userName') // {id, username} atau undefined
 
@@ -36,8 +36,8 @@ class App extends Component {
                     <Route path="/register" component={Register}/> {/* include() */}
                     <Route path="/login" component={Login}/> {/* include() */}
                     <Route path="/manageproduct" component={ManageProduct}/> {/* include() */}
-                    <Route path="/detailproduct/:product_id" component={DetailProduct} />
-                    <Route path="/cart" component={Cart} />
+                    <Route path='/detailproduct/:product_id' component={DetailProduct}/>
+                    <Route path='/cart' component={Cart}/>
                 </div>
             </BrowserRouter>
         )

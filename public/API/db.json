@@ -28,9 +28,9 @@
       "id": 1
     },
     {
-      "desc": "Bahan Combed",
+      "desc": "Bahan Murah",
       "name": "T-Shirt 2",
-      "price": 25000,
+      "price": "25000",
       "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 2
     },
@@ -57,36 +57,6 @@
     }
   ],
   "cart": [
-    {
-      "idProduct": 1,
-      "idUser": 2,
-      "name": "T-Shirt",
-      "desc": "Bahan Katun",
-      "price": "30000",
-      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
-      "jumlah": 5,
-      "id": 1
-    },
-    {
-      "idProduct": 2,
-      "idUser": 2,
-      "name": "T-Shirt 2",
-      "desc": "Bahan Combed",
-      "price": 25000,
-      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
-      "jumlah": 3,
-      "id": 2
-    },
-    {
-      "idProduct": 5,
-      "idUser": 2,
-      "name": "T-Shirt 4",
-      "desc": "Bahan Combed",
-      "price": 100000,
-      "src": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
-      "jumlah": 2,
-      "id": 3
-    },
     {
       "idProduct": 1,
       "idUser": 3,

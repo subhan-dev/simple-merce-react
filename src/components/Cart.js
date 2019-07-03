@@ -49,7 +49,7 @@ class Cart extends Component {
                         <img className="list" src={item.src} alt="Pict"/>
                     </td>
                     <td>
-                        <button className = 'btn btn-warning' onClick={() => this.handleDelete(item.id)}>Delete</button>
+                        <button className = 'btn btn-danger' onClick={() => this.handleDelete(item.id)}>Delete</button>
                     </td>
                 </tr>
             )
@@ -65,7 +65,7 @@ class Cart extends Component {
             if(this.state.checkout) {
                 return (
                     <div className="container">
-                        <h1 className="display-4 text-center">List Product Cart</h1>
+                        <h1 className="display-4">List Product Cart</h1>
                         <table className="table table-hover mb-5">
                             <thead>
                                 <tr>
@@ -83,14 +83,14 @@ class Cart extends Component {
                             </tbody>
     
                         </table>
-                        <button className = 'btn btn-primary mx-auto' onClick={() => {this.handleCheckout()}}>CheckOut</button>
+                        <button className = 'btn btn-primary' style={{marginLeft:"45%"}} onClick={() => {this.handleCheckout()}}>CheckOut</button>
                         <Checkout cartList = {this.state.cart}/>
                     </div>
                 )
             } else {
                 return (
                     <div className="container">
-                        <h1 className="display-4 text-center">List Product Cart</h1>
+                        <h1 className="display-4">List Product Cart</h1>
                         <table className="table table-hover mb-5">
                             <thead>
                                 <tr>
@@ -108,7 +108,7 @@ class Cart extends Component {
                             </tbody>
     
                         </table>
-                        <button className = 'btn btn-primary' onClick={() => {this.handleCheckout()}}>CheckOut</button>
+                        <button className = 'btn btn-primary' style={{marginLeft:"45%"}} onClick={() => {this.handleCheckout()}}>CheckOut</button>
                     </div>
                 )
             }
